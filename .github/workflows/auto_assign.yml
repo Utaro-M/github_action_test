@@ -1,14 +1,28 @@
 
-# Set to true to add reviewers to pull requests
-addReviewers: true
+# # Set to true to add reviewers to pull requests
+# addReviewers: true
 
-# Set to true to add assignees to pull requests
-addAssignees: true
+# # Set to true to add assignees to pull requests
+# addAssignees: true
 
-# A list of reviewers to be added to pull requests (GitHub user name)
-reviewers:
-  - Utaro-M
+# # A list of reviewers to be added to pull requests (GitHub user name)
+# reviewers:
+#   - Utaro-M
 
-# A number of reviewers added to the pull request
-# Set 0 to add all the reviewers (default: 0)
-numberOfReviewers: 0
+# # A number of reviewers added to the pull request
+# # Set 0 to add all the reviewers (default: 0)
+# numberOfReviewers: 0
+name: Review Assign
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hkusu/review-assign-action@v0.1.0
+        with:
+          assignees: ${{ github.actor }}
+          reviewers: Utaro-M
