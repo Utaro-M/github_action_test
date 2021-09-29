@@ -36,3 +36,19 @@ jobs:
         # uses: nuxt/actions-yarn@node-11
         # with:
         #   args: "install"
+
+# labelに基づいてアサイン、レビュワーを設定する
+name: auto-assign
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+jobs:
+  add-reviews:
+    if: contains(github.event.pull_request.labels.*.name, 'review request')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kentaro-m/auto-assign-action@v1.1.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: ".github/auto_assign.yml"
+ # contains(github.event.pull_request.labels.*.name, 'gremlins') &&
