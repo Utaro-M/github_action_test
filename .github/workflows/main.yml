@@ -8,12 +8,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-
       - name: yarn install
         uses: yarn install
-        # uses: nuxt/actions-yarn@node-11
-        # with:
-        #   args: "install"
       - name: eslint review
         uses: reviewdog/action-eslint@v1
         with:
@@ -24,6 +20,9 @@ jobs:
         run: yarn lint
       - name: Run Jest
         run: yarn jest
+      # uses: nuxt/actions-yarn@node-11
+      # with:
+      #   args: "install"        
       # - name: Upload test coverage artifact
       #   uses: actions/upload-artifact@v1
       #   with:
