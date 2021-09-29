@@ -16,23 +16,23 @@ jobs:
           reporter: github-pr-review
           eslint_flags: './**/*.{vue,ts,js}'
       - name: Run eslint
-        run: yarn lint
+        run: yarn run lint
       - name: Run Jest
-        run: yarn jest
-      # uses: nuxt/actions-yarn@node-11
-      # with:
-      #   args: "install"        
-      # - name: Upload test coverage artifact
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: coverage
-      #     path: coverage
-      # - name: Show coverage in comments
-      #   uses: ziishaned/jest-reporter-action@v0.0.1
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     test-command: "yarn jest --coverage"
-      # - name: yarn lint
-      #   uses: nuxt/actions-yarn@node-11
-      #   with:
-      #     args: "lint"
+        run: yarn run jest
+      - name: Upload test coverage artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: coverage
+          path: coverage
+      - name: Show coverage in comments
+        uses: ziishaned/jest-reporter-action@v0.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          test-command: "yarn jest --coverage"
+      - name: yarn lint
+        uses: nuxt/actions-yarn@node-11
+        with:
+          args: "lint"
+        # uses: nuxt/actions-yarn@node-11
+        # with:
+        #   args: "install"
