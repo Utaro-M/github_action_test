@@ -10,11 +10,31 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: yarn install
-        uses: nuxt/actions-yarn@node-11
+        uses: yarn install
+        # uses: nuxt/actions-yarn@node-11
+        # with:
+        #   args: "install"
+      - name: eslint review
+        uses: reviewdog/action-eslint@v1
         with:
-          args: "install"
-
-      - name: yarn lint
-        uses: nuxt/actions-yarn@node-11
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          eslint_flags: './**/*.{vue,ts,js}'
+      - name: Run eslint
+        run: yarn lint
+      - name: Run Jest
+        run: yarn jest
+      - name: Upload test coverage artifact
+        uses: actions/upload-artifact@v1
         with:
-          args: "lint"
+          name: coverage
+          path: coverage
+      - name: Show coverage in comments
+        uses: ziishaned/jest-reporter-action@v0.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          test-command: "yarn jest --coverage"
+      # - name: yarn lint
+      #   uses: nuxt/actions-yarn@node-11
+      #   with:
+      #     args: "lint"
