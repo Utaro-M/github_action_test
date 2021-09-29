@@ -38,7 +38,7 @@ jobs:
         #   args: "install"
 
 # labelに基づいてアサイン、レビュワーを設定する
-name: auto-assign
+# name: auto-assign
 on:
   pull_request:
     types: [opened, ready_for_review]
